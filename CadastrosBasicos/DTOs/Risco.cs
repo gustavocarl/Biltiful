@@ -1,7 +1,6 @@
-﻿namespace CadastrosBasicos.DTOs
+﻿namespace CadastrosBasicos.DTOs;
+
+public class Risco
 {
-    public class Risco
-    {
-        public string CPF { get; set; }
-    }
+    public string CPF { get; set; }
 }

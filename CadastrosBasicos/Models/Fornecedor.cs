@@ -1,23 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CadastrosBasicos.Models;
 
-namespace CadastrosBasicos.Models
+public class Fornecedor
 {
-    public class Fornecedor
+    public Fornecedor(string cnpj, string razaoSocial, DateOnly dataAbertura, DateOnly ultimaCompra, DateOnly dataCadastro, char situacao)
     {
-        public string CNPJ { get; set; }
+        CNPJ = cnpj;
+        RazaoSocial = razaoSocial;
+        DataAbertura = dataAbertura;
+        UltimaCompra = ultimaCompra;
+        DataCadastro = dataCadastro;
+        Situacao = situacao;
+    }
 
-        public string RazaoSocial { get; set; }
+    public string CNPJ { get; set; }
 
-        public DateTime DataAbertura { get; set; }
+    public string RazaoSocial { get; set; }
 
-        public DateTime UltimaCompra { get; set; }
+    public DateOnly DataAbertura { get; set; }
 
-        public DateTime DataCadastro { get; set; }
+    public DateOnly UltimaCompra { get; set; }
 
-        public char Situacao { get; set; }
+    public DateOnly DataCadastro { get; set; }
+
+    public char Situacao { get; set; }
+
+    public string ImprimirDadosFornecedor()
+    {
+        return $"CNPJ: {CNPJ} \n" +
+            $"Razão Social: {RazaoSocial} \n" +
+            $"Data de Abertura: {DataAbertura:dd/MM/yyyy} \n" +
+            $"Última Compra: {UltimaCompra:dd/MM/yyyy} \n" +
+            $"Data do Cadastro: {DataCadastro:dd/MM/yyyy} \n" +
+            $"Situação: {Situacao} \n";
     }
 }

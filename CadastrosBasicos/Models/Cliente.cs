@@ -1,25 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CadastrosBasicos.Models;
 
-namespace CadastrosBasicos.Models
+public class Cliente
 {
-    public class Cliente
+    public Cliente(string cpf, string nome, DateOnly dataNascimento, char sexo, DateOnly ultimaCompra, DateOnly dataCadastro, char situacao)
     {
-        public string CPF { get; set; }
+        CPF = cpf;
+        Nome = nome;
+        DataNascimento = dataNascimento;
+        Sexo = sexo;
+        UltimaCompra = ultimaCompra;
+        DataCadastro = dataCadastro;
+        Situacao = situacao;
+    }
 
-        public string Nome { get; set; }
+    public string CPF { get; set; }
 
-        public DateTime DataNascimento { get; set; }
+    public string Nome { get; set; }
 
-        public char Sexo { get; set; }
+    public DateOnly DataNascimento { get; set; }
 
-        public DateTime UltimaCompra { get; set; }
+    public char Sexo { get; set; }
 
-        public DateTime DataCadastro { get; set; }
+    public DateOnly UltimaCompra { get; set; }
 
-        public char Situacao { get; set; }
+    public DateOnly DataCadastro { get; set; }
+
+    public char Situacao { get; set; }
+
+    public string ImprimirDadosCliente()
+    {
+        return $"CPF: {CPF} \n" +
+            $"Nome: {Nome} \n" +
+            $"Data de Nascimento: {DataNascimento:dd/MM/yyyy} \n" +
+            $"Sexo: {Sexo} \n" +
+            $"Última Compra: {UltimaCompra:dd/MM/yyy} \n" +
+            $"Data de Cadastro: {DataCadastro:dd/MM/yyyy} \n" +
+            $"Situação: {Situacao} \n";
     }
 }

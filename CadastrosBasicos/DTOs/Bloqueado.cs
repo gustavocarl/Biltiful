@@ -1,7 +1,6 @@
-﻿namespace CadastrosBasicos.DTOs
+﻿namespace CadastrosBasicos.DTOs;
+
+public class Bloqueado
 {
-    public class Bloqueado
-    {
-        public string CNPJ { get; set; }
-    }
+    public string CNPJ { get; set; }
 }
