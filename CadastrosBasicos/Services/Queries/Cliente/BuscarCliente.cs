@@ -1,6 +1,5 @@
-﻿namespace CadastrosBasicos.Services.Queries.Cliente
+﻿namespace CadastrosBasicos.Services.Queries.Cliente;
+
+public class BuscarCliente
 {
-    internal class BuscarCliente
-    {
-    }
 }

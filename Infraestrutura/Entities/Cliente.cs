@@ -1,7 +1,12 @@
-﻿namespace CadastrosBasicos.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Infraestrutura.Entities;
 
 public class Cliente
 {
+    public Cliente()
+    { }
+
     public Cliente(string cpf, string nome, DateOnly dataNascimento, char sexo, DateOnly ultimaCompra, DateOnly dataCadastro, char situacao)
     {
         CPF = cpf;
@@ -13,28 +18,24 @@ public class Cliente
         Situacao = situacao;
     }
 
+    [Key]
     public string CPF { get; set; }
 
+    [Required]
     public string Nome { get; set; }
 
+    [Required]
     public DateOnly DataNascimento { get; set; }
 
+    [Required]
     public char Sexo { get; set; }
 
+    [Required]
     public DateOnly UltimaCompra { get; set; }
 
+    [Required]
     public DateOnly DataCadastro { get; set; }
 
+    [Required]
     public char Situacao { get; set; }
-
-    public string ImprimirDadosCliente()
-    {
-        return $"CPF: {CPF} \n" +
-            $"Nome: {Nome} \n" +
-            $"Data de Nascimento: {DataNascimento:dd/MM/yyyy} \n" +
-            $"Sexo: {Sexo} \n" +
-            $"Última Compra: {UltimaCompra:dd/MM/yyy} \n" +
-            $"Data de Cadastro: {DataCadastro:dd/MM/yyyy} \n" +
-            $"Situação: {Situacao} \n";
-    }
 }

@@ -30,6 +30,7 @@ public class MenuMateriaPrima
 
             case "1":
                 materiaPrimaService.CadastrarNovaMateriaPrima();
+                ShowMenuMateriaPrima();
                 break;
         }
     }

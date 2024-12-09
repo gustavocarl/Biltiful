@@ -29,7 +29,7 @@ public class ValidacoesProduto
         return true;
     }
 
-    public static bool ValidarValorDoProduto(float valorProduto)
+    public static bool ValidarValorDoProduto(decimal valorProduto)
     {
         if (valorProduto < 0 || valorProduto > 1000)
         {

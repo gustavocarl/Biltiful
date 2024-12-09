@@ -1,19 +1,30 @@
 ﻿using CadastrosBasicos.Services.Validacoes;
+using Infraestrutura.Config;
+using Infraestrutura.Repository.Contract;
+using Infraestrutura.Repository.Implementation;
 
 namespace CadastrosBasicos.Services.Commands.Produto;
 
 public class CadastrarProduto
 {
+    private readonly IProdutoRepository _produtoRepository;
+
+    public CadastrarProduto()
+    {
+        _produtoRepository = new ProdutoRepository(new DatabaseContext());
+    }
+
+
     public void CadastrarNovoProduto()
     {
         string codigoBarras, nome;
-        float valorVenda;
+        decimal valorVenda;
 
         do
         {
             Console.WriteLine("Informe o Código de Barras do Produto: ");
             codigoBarras = Console.ReadLine()!;
-        } while (!ValidacoesProduto.IsValidEAN13(codigoBarras));
+        } while (!ValidacoesProduto.IsValidEAN13(codigoBarras) || _produtoRepository.ProdutoCadastrado(codigoBarras));
 
         do
         {
@@ -24,15 +35,18 @@ public class CadastrarProduto
         do
         {
             Console.WriteLine("Informe o Valor da Venda");
-            valorVenda = float.Parse(Console.ReadLine()!);
+            valorVenda = decimal.Parse(Console.ReadLine()!);
         } while (!ValidacoesProduto.ValidarValorDoProduto(valorVenda));
 
         DateOnly ultimaVenda = DateOnly.FromDateTime(DateTime.Now);
 
         char situacao = 'A';
 
-        var produto = new Models.Produto(codigoBarras, nome, valorVenda, ultimaVenda, situacao);
+        var produto = new Infraestrutura.Entities.Produto(codigoBarras, nome, valorVenda, ultimaVenda, situacao);
 
-        Console.WriteLine(produto.ImprimirVenda());
+        _produtoRepository.CadastrarProduto(produto);
+
+        Console.WriteLine("Pressione ENTER para continuar...");
+        Console.ReadLine();
     }
 }

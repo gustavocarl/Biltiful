@@ -1,11 +1,21 @@
 ﻿using CadastrosBasicos.Services.Validacoes;
 using CpfCnpjLibrary;
+using Infraestrutura.Config;
+using Infraestrutura.Repository.Contract;
+using Infraestrutura.Repository.Implementation;
 using System.Globalization;
 
 namespace CadastrosBasicos.Services.Commands.Fornecedor
 {
     public class CadastrarFornecedor
     {
+        private readonly IFornecedorRepository _fornecedorRepository;
+
+        public CadastrarFornecedor()
+        {
+            _fornecedorRepository = new FornecedorRepository(new DatabaseContext());
+        }
+
         public void CadastrarNovoFonecedor()
         {
             string cnpj, razaoSocial, dataAbertura;
@@ -14,7 +24,7 @@ namespace CadastrosBasicos.Services.Commands.Fornecedor
             {
                 Console.WriteLine("Informe o CNPJ do Fornecedor");
                 cnpj = Console.ReadLine()!;
-            } while (!Cnpj.Validar(cnpj));
+            } while (!Cnpj.Validar(cnpj) || _fornecedorRepository.FornecedorCadastrado(cnpj));
 
             do
             {
@@ -36,9 +46,9 @@ namespace CadastrosBasicos.Services.Commands.Fornecedor
 
             char situacao = 'A';
 
-            var fornecedor = new Models.Fornecedor(cnpj, razaoSocial, dataConvertidaAbertura, ultimaCompra, dataCadastro, situacao);
+            var fornecedor = new Infraestrutura.Entities.Fornecedor(cnpj, razaoSocial, dataConvertidaAbertura, ultimaCompra, dataCadastro, situacao);
 
-            Console.WriteLine(fornecedor.ImprimirDadosFornecedor());
+            _fornecedorRepository.CadastrarFornecedor(fornecedor);
 
             Console.WriteLine("Pressione ENTER para continuar...");
             Console.ReadLine();

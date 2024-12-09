@@ -1,11 +1,21 @@
 ﻿using CadastrosBasicos.Services.Validacoes;
 using CpfCnpjLibrary;
+using Infraestrutura.Config;
+using Infraestrutura.Repository.Contract;
+using Infraestrutura.Repository.Implementation;
 using System.Globalization;
 
 namespace CadastrosBasicos.Services.Commands.Cliente;
 
 public class CadastrarCliente
 {
+    private readonly IClienteRepository _clienteRepository;
+
+    public CadastrarCliente()
+    {
+        _clienteRepository = new ClienteRepository(new DatabaseContext());
+    }
+
     public void CadastrarNovoCliente()
     {
         string nome, cpf, dataNascimento;
@@ -15,7 +25,7 @@ public class CadastrarCliente
         {
             Console.WriteLine("Informe o CPF do Cliente");
             cpf = Console.ReadLine()!;
-        } while (!Cpf.Validar(cpf));
+        } while (!Cpf.Validar(cpf) || _clienteRepository.ClienteCadastrado(cpf));
 
         do
         {
@@ -43,9 +53,9 @@ public class CadastrarCliente
 
         char situacao = 'A';
 
-        var cliente = new Models.Cliente(cpf, nome, dataConvertidaCliente, sexo, ultimaCompra, dataCadastro, situacao);
+        var cliente = new Infraestrutura.Entities.Cliente(cpf, nome, dataConvertidaCliente, sexo, ultimaCompra, dataCadastro, situacao);
 
-        Console.WriteLine(cliente.ImprimirDadosCliente());
+        _clienteRepository.CadastrarCliente(cliente);
 
         Console.WriteLine("Pressione ENTER para continuar...");
         Console.ReadLine();

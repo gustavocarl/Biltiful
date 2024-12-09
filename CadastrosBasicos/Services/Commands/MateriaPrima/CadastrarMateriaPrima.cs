@@ -1,7 +1,18 @@
-﻿namespace CadastrosBasicos.Services.Commands.MateriaPrima;
+﻿using Infraestrutura.Config;
+using Infraestrutura.Repository.Contract;
+using Infraestrutura.Repository.Implementation;
+
+namespace CadastrosBasicos.Services.Commands.MateriaPrima;
 
 public class CadastrarMateriaPrima
 {
+    private readonly IMateriaPrimaRepository _materiaPrimaRepository;
+
+    public CadastrarMateriaPrima()
+    {
+        _materiaPrimaRepository = new MateriaPrimaRepository(new DatabaseContext());
+    }
+
     public void CadastrarNovaMateriaPrima()
     {
         string nome;
@@ -12,7 +23,7 @@ public class CadastrarMateriaPrima
         {
             Console.WriteLine("Informe o Nome da Matéria-Prima");
             nome = Console.ReadLine()!;
-        } while (!Validacoes.ValidacoesMateriaPrima.ValidarNomeMateriaPrima(nome));
+        } while (!Validacoes.ValidacoesMateriaPrima.ValidarNomeMateriaPrima(nome) || _materiaPrimaRepository.MateriaPrimaCadastrada(nome));
 
         DateOnly ultimaCompra = DateOnly.FromDateTime(DateTime.Now);
 
@@ -20,8 +31,11 @@ public class CadastrarMateriaPrima
 
         char situacao = 'A';
 
-        var materiaPrima = new Models.MateriaPrima(id, nome, ultimaCompra, dataCadastro, situacao);
+        var materiaPrima = new Infraestrutura.Entities.MateriaPrima(id, nome, ultimaCompra, dataCadastro, situacao);
 
-        Console.WriteLine(materiaPrima.ImprimirMateriaPrima());
+        _materiaPrimaRepository.CadastrarMateriaPrima(materiaPrima);
+
+        Console.WriteLine("Pressione ENTER para continuar...");
+        Console.ReadLine();
     }
 }
