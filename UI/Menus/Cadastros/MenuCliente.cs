@@ -1,4 +1,5 @@
 ﻿using CadastrosBasicos.Services.Commands.Cliente;
+using CadastrosBasicos.Services.Queries.Cliente;
 
 namespace UI.Menus.Cadastros;
 
@@ -7,7 +8,10 @@ public class MenuCliente
     public void ShowMenuCliente()
     {
         var cadastroBasicoMenu = new CadastrosBasicosMenu();
-        var clienteService = new CadastrarCliente();
+        var cadastrarCliente = new CadastrarCliente();
+        var inativarCliente = new InativarCliente();
+        var atualizarCliente = new AtualizarCliente();
+        var localizarCliente = new BuscarCliente();
 
         Console.Clear();
 
@@ -29,7 +33,21 @@ public class MenuCliente
                 break;
 
             case "1":
-                clienteService.CadastrarNovoCliente();
+                cadastrarCliente.CadastrarNovoCliente();
+                ShowMenuCliente();
+                break;
+
+            case "2":
+                localizarCliente.LocalizarCliente();
+                break;
+
+            case "3":
+                atualizarCliente.AtualizarClienteCadastrado();
+                ShowMenuCliente();
+                break;
+
+            case "4":
+                inativarCliente.InativarClienteCadastrado();
                 ShowMenuCliente();
                 break;
 

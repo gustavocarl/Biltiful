@@ -5,7 +5,13 @@ namespace Infraestrutura.Entities;
 public class Cliente
 {
     public Cliente()
-    { }
+    {
+    }
+
+    public Cliente(char situacao)
+    {
+        Situacao = situacao;
+    }
 
     public Cliente(string cpf, string nome, DateOnly dataNascimento, char sexo, DateOnly ultimaCompra, DateOnly dataCadastro, char situacao)
     {
@@ -16,6 +22,14 @@ public class Cliente
         UltimaCompra = ultimaCompra;
         DataCadastro = dataCadastro;
         Situacao = situacao;
+    }
+
+    public Cliente(string cpf, string nome, DateOnly dataNascimento, char sexo)
+    {
+        CPF = cpf;
+        Nome = nome;
+        DataNascimento = dataNascimento;
+        Sexo = sexo;
     }
 
     [Key]
